@@ -28,6 +28,7 @@
     (['or & args]      :seq) {:anyOf (map spec-object args)}
     (['* & args]       :seq) {:type "array" :items (spec-object type)}
     (['+ & args]       :seq) {:type "array" :items (spec-object type) :minItems 1}
+    (a-set :guard set?)      {:enum (vec a-set)}
     'int? {:type "integer"}
     'float? {:type "number"}
     'string? {:type "string"}
