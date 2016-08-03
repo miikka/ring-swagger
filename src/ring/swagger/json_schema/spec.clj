@@ -30,4 +30,5 @@
     (['+ & args]       :seq) {:type "array" :items (spec-object type) :minItems 1}
     'int? {:type "integer"}
     'float? {:type "number"}
+    'string? {:type "string"}
     :else {}))

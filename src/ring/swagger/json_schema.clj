@@ -1,9 +1,11 @@
 (ns ring.swagger.json-schema
-  (:require [schema.core :as s]
+  (:require [clojure.spec :as clj-spec]
+            [schema.core :as s]
             [schema.spec.core :as spec]
             [schema.spec.variant :as variant]
             [ring.swagger.common :as c]
-            [ring.swagger.core :as rsc]))
+            [ring.swagger.core :as rsc]
+            [ring.swagger.json-schema.spec :refer [spec-object]]))
 
 (defn maybe? [schema]
   (instance? schema.core.Maybe schema))
@@ -136,7 +138,9 @@
 
   Object
   (convert [e _]
-    (not-supported! e))
+    (if (clj-spec/get-spec e)
+      (spec-object e)
+      (not-supported! e)))
 
   Class
   (convert [e options]
